@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyACQYsV-1_AlZRU-C0J0w9M55f49Sm7o_A",
+    apiKey: Process.env.REACT_APP_API_KEY,
     authDomain: "dashboard-8f54d.firebaseapp.com",
     projectId: "dashboard-8f54d",
     storageBucket: "dashboard-8f54d.firebasestorage.app",
