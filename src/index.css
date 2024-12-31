@@ -83,6 +83,24 @@ footer {
   color: rgba(255, 255, 255, 0.7);
 }
 
+button {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #357ae8;
+}
+
+button:active {
+  transform: scale(0.98);
+}
 
 
 

@@ -1,40 +1,70 @@
 import React, { useState } from "react";
+import jsPDF from "jspdf";
+import "jspdf-autotable"; // For creating tables in PDF
+import Papa from "papaparse";
 
 const PayoutDetails = () => {
-  const [payouts] = useState([
-    { id: 1, amount: 1200, date: "2024-12-28", status: "Completed" },
-    { id: 2, amount: 1500, date: "2024-12-25", status: "Pending" },
-    { id: 3, amount: 800, date: "2024-12-20", status: "Completed" },
-    { id: 4, amount: 2000, date: "2024-12-15", status: "Failed" },
+  // Sample payout data
+  const [payouts, setPayouts] = useState([
+    { author: "Alice", articles: 5, payout: 100 },
+    { author: "Bob", articles: 3, payout: 75 },
+    { author: "Charlie", articles: 8, payout: 160 },
   ]);
 
+  // Function to export as PDF
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Payout Details", 14, 10);
+    doc.autoTable({
+      head: [["Author", "Articles", "Payout"]],
+      body: payouts.map((item) => [item.author, item.articles, `$${item.payout}`]),
+    });
+    doc.save("payout-details.pdf");
+  };
+
+  // Function to export as CSV
+  const exportToCSV = () => {
+    const csvData = payouts.map((item) => ({
+      Author: item.author,
+      Articles: item.articles,
+      Payout: `$${item.payout}`,
+    }));
+
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "payout-details.csv";
+    link.click();
+  };
+
   return (
-    <div>
-        <h2>Payout Details</h2>
-      <table className="payout-table">
+    <div className="payout-details">
+      <h2>Payout Details</h2>
+      <table border="1" style={{ width: "100%", marginBottom: "1rem" }}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Status</th>
+            <th>Author</th>
+            <th>Articles</th>
+            <th>Payout</th>
           </tr>
         </thead>
         <tbody>
-          {payouts.map((payout) => (
-            <tr key={payout.id}>
-              <td>{payout.id}</td>
-              <td>${payout.amount}</td>
-              <td>{payout.date}</td>
-              <td>
-                <span className={`status ${payout.status.toLowerCase()}`}>
-                  {payout.status}
-                </span>
-              </td>
+          {payouts.map((item, index) => (
+            <tr key={index}>
+              <td>{item.author}</td>
+              <td>{item.articles}</td>
+              <td>${item.payout}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button onClick={exportToPDF} style={{ marginRight: "1rem" }}>
+        Export to PDF
+      </button>
+      <button onClick={exportToCSV}>Export to CSV</button>
     </div>
   );
 };
