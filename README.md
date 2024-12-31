@@ -1,7 +1,8 @@
 # Responsive Dashboard with News and Payout Details
 
 # Project Overview
-The Responsive Dashboard is a feature-rich web application designed to provide real-time news analytics and payout management. It includes user authentication via Google, responsive design, and exportable data functionality.
+The Responsive Dashboard is a feature-rich web application designed to provide real-time news analytics and payout management. 
+It includes user authentication via Google, responsive design, and exportable data functionality.
 
 # Features
 - **User Authentication**: Users can log in using their Google account credentials.
@@ -50,3 +51,6 @@ npm run dev
 1. Open the app and log in with Google.
 2. Explore news analytics, filter/search articles, and manage payouts.
 3. Export data as needed in multiple formats.
+
+
+### If the deployed link doesn't work then you can see some visuals here
