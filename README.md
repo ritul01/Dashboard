@@ -54,3 +54,4 @@ npm run dev
 
 
 ### If the deployed link doesn't work then you can see some visuals here
+<img title="a title" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 164203.png">
