@@ -13,7 +13,18 @@ const NewsAnalytics = () => {
         const response = await fetch(
           "https://newsapi.org/v2/everything?q=tesla&from=2024-11-30&sortBy=publishedAt&apiKey=cec249148c81412f81ec2821c2da0f4e"
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+
+        if (!data.articles || data.articles.length === 0) {
+          console.error("No articles found.");
+          return;
+        }
+
         setNewsData(data.articles);
 
         // Prepare data for the chart
@@ -29,8 +40,8 @@ const NewsAnalytics = () => {
             {
               label: "Articles by Author",
               data: Object.values(authorCounts),
-              backgroundColor: "hsla(180, 29.00%, 6.10%, 0.60)",
-              borderColor: "hsl(120, 25.00%, 96.90%)",
+              backgroundColor: "rgba(75, 192, 192, 0.6)",
+              borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
             },
           ],
@@ -49,7 +60,7 @@ const NewsAnalytics = () => {
 
       {/* Display a bar chart */}
       {chartData ? (
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto", height: "400px" }}>
           <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
         </div>
       ) : (
@@ -60,12 +71,16 @@ const NewsAnalytics = () => {
       <div className="article-list">
         <h3>Recent Articles</h3>
         <ul>
-          {newsData.slice(0, 5).map((article, index) => (
-            <li key={index}>
-              <strong>{article.title}</strong> by {article.author || "Unknown"} on{" "}
-              {new Date(article.publishedAt).toLocaleDateString()}
-            </li>
-          ))}
+          {newsData && newsData.length > 0 ? (
+            newsData.slice(0, 5).map((article, index) => (
+              <li key={index}>
+                <strong>{article.title || "No title available"}</strong> by {article.author || "Unknown"} on{" "}
+                {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : "Unknown date"}
+              </li>
+            ))
+          ) : (
+            <p>No articles to display.</p>
+          )}
         </ul>
       </div>
     </div>
