@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import "chart.js/auto"; // Automatically register chart components
+import "chart.js/auto";
 
 const NewsAnalytics = () => {
   const [newsData, setNewsData] = useState([]);
   const [chartData, setChartData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  // Fetch news data from an API
+  // Fetch news data from the API
   useEffect(() => {
     const fetchNews = async () => {
       try {
         const response = await fetch(
-          "https://newsapi.org/v2/top-headlines?country=us&apiKey=cec249148c81412f81ec2821c2da0f4e",
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-            },
-          }
+          "https://newsapi.org/v2/top-headlines?country=us&apiKey=cec249148c81412f81ec2821c2da0f4e"
         );
 
         if (!response.ok) {
-          if (response.status === 426) {
-            throw new Error("Upgrade Required: Check your NewsAPI subscription plan.");
-          }
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
 
         if (!data.articles || data.articles.length === 0) {
-          console.error("No articles found.");
-          return;
+          throw new Error("No articles found.");
         }
 
         setNewsData(data.articles);
@@ -55,8 +46,12 @@ const NewsAnalytics = () => {
             },
           ],
         });
+
+        // Clear any previous error messages
+        setErrorMessage(null);
       } catch (error) {
         console.error("Error fetching news data:", error);
+        setErrorMessage("Unable to fetch news data. Please try again later.");
       }
     };
 
@@ -67,30 +62,33 @@ const NewsAnalytics = () => {
     <div className="news-analytics">
       <h2>News Analytics</h2>
 
+      {/* Fallback message if the API fails */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
       {/* Display a bar chart */}
-      {chartData ? (
-        <div style={{ maxWidth: "1000px", margin: "0 auto", height: "400px" }}>
+      {chartData && !errorMessage ? (
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
         </div>
       ) : (
-        <p>Loading chart...</p>
+        !errorMessage && <p>Loading chart...</p>
       )}
 
       {/* Display a list of recent articles */}
       <div className="article-list">
         <h3>Recent Articles</h3>
-        <ul>
-          {newsData && newsData.length > 0 ? (
-            newsData.slice(0, 5).map((article, index) => (
+        {newsData.length > 0 && !errorMessage ? (
+          <ul>
+            {newsData.slice(0, 5).map((article, index) => (
               <li key={index}>
-                <strong>{article.title || "No title available"}</strong> by {article.author || "Unknown"} on{" "}
-                {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : "Unknown date"}
+                <strong>{article.title}</strong> by {article.author || "Unknown"} on{" "}
+                {new Date(article.publishedAt).toLocaleDateString()}
               </li>
-            ))
-          ) : (
-            <p>No articles to display.</p>
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          !errorMessage && <p>Loading articles...</p>
+        )}
       </div>
     </div>
   );
