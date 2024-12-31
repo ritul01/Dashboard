@@ -61,4 +61,4 @@ npm run dev
 
 ### If the deployed link doesn't work then you can see some visuals here
 <img title="Login display" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 164203.png">
-<img title="Login display" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 215002.png">
+<img title="Dashboard" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 215002.png">
