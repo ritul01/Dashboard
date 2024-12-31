@@ -231,3 +231,7 @@ header {
 body.dark-mode header {
   background-color: #1e1e1e;
 }
+.google-logout-btn{
+  border: #121212;
+  border-radius: 2px;
+}

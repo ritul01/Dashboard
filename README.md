@@ -11,6 +11,7 @@ It includes user authentication via Google, responsive design, and exportable da
 - **Responsive Design**: The dashboard is fully responsive, ensuring a seamless user experience across various devices.
 - **Exportable Data**: Users can export data in CSV or PDF format for further analysis.
 - **Error Handling**: Graceful fallback for API errors.
+- **Dark Mode Features**: Incorporating dark mode funtionalities with icon.
 
 # Technology Used
 - **Frontend**: React, Redux, Chart.js, CSS.
@@ -22,7 +23,7 @@ It includes user authentication via Google, responsive design, and exportable da
 1. Clone the Repository
 ```bash
 git clone git@github.com:ritul01/Dashboard.git
-cd cd dashboard
+cd dashboard
 ```
 3. Install Dependencies
 ```bash
@@ -60,5 +61,5 @@ npm run dev
 
 
 ### If the deployed link doesn't work then you can see some visuals here
-<img title="Login display" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 164203.png">
-<img title="Dashboard" alt="Alt text" src="./src/assets/Screenshot 2024-12-31 215002.png">
+<img title="Login display" alt="Alt text" src="./src/assets/login.png">
+<img title="Dashboard" alt="Alt text" src="./src/assets/dashboard.png">
