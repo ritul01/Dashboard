@@ -22,6 +22,29 @@ The Responsive Dashboard is a feature-rich web application designed to provide r
 ```bash
 git clone git@github.com:ritul01/Dashboard.git
 ```
+2. Install Dependencies
+```bash
+npm install
+```
+3. Add Environment Variables
+- Create a .env file in the root directory:
+```makefile
+VITE_API_KEY=your_api_key
+VITE_AUTH_DOMAIN=your_auth_domain
+VITE_PROJECT_ID=your_project_id
+VITE_STORAGE_BUCKET=your_storage_bucket
+VITE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_APP_ID=your_app_id
+```
+- Replace placeholders with your Firebase project configuration.
+
+4. Start the Development Server
+```bash
+npm run dev
+```
+
+
+
 
 # Usage
 1. Open the app and log in with Google.
