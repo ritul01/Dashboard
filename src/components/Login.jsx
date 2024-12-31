@@ -10,7 +10,7 @@ const Login = ({ setUser }) => {
 
   return (
     <div className="login-container">
-      <h2>Login to Dashboard</h2>
+      <h2 className="text">Login to Dashboard</h2>
       <button className="google-login-btn" onClick={handleLogin}>
         Sign in with Google
       </button>
