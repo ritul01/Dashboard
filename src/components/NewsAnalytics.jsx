@@ -11,10 +11,19 @@ const NewsAnalytics = () => {
     const fetchNews = async () => {
       try {
         const response = await fetch(
-          "https://newsapi.org/v2/top-headlines?country=us&apiKey=cec249148c81412f81ec2821c2da0f4e"
+          "https://newsapi.org/v2/top-headlines?country=us&apiKey=cec249148c81412f81ec2821c2da0f4e",
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+            },
+          }
         );
 
         if (!response.ok) {
+          if (response.status === 426) {
+            throw new Error("Upgrade Required: Check your NewsAPI subscription plan.");
+          }
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
