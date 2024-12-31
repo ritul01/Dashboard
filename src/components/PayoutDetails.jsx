@@ -9,6 +9,7 @@ const PayoutDetails = () => {
     { author: "Alice", articles: 5, payout: 100 },
     { author: "Bob", articles: 3, payout: 75 },
     { author: "Charlie", articles: 8, payout: 160 },
+    { author: "Sam", articles: 6, payout: 90 },
   ]);
 
   // Function to export as PDF
